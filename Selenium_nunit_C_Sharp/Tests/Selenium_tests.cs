@@ -1,10 +1,10 @@
 ﻿using NUnit.Framework;
-using ReportPortal.Shared;
+using NUnit.Framework.Interfaces;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
-using NUnit.Framework.Interfaces;
-using System.Drawing.Imaging;
+using ReportPortal.Shared;
 using System;
+using System.Drawing.Imaging;
 
 namespace Example.Tests
 {
@@ -35,8 +35,6 @@ namespace Example.Tests
             driver.Quit();
         }
 
-        
-
         [Test]
         [Category("T1")]
         public void Test_1_Passed()
@@ -45,14 +43,13 @@ namespace Example.Tests
             driver.Url = "https://shinkairyuu.github.io/Selenium_test_page/";
             Assert.AreEqual("SELENIUM TEST PAGE INDEX", driver.Title);
         }
+
         [Test]
         public void Test_2_Failed()
         {
             Bridge.LogMessage(ReportPortal.Client.Models.LogLevel.Trace, "This is message for test 2");
             driver.Url = "https://shinkairyuu.github.io/Selenium_test_page/";
             Assert.AreEqual("SELENIUM TEST PAGE INDEX2", driver.Title);
-
-
         }
 
         [Test]
@@ -61,12 +58,8 @@ namespace Example.Tests
         {
             Bridge.LogMessage(ReportPortal.Client.Models.LogLevel.Trace, "This is message for test 2");
             driver.Url = "https://shinkairyuu.github.io/Selenium_test_page/";
-            Assert.AreEqual("SELENIUM TEST PAGE INDEX2", driver.Title);
-
-
+            Assert.AreEqual("SELENIUM TEST PAGE INDEX", driver.Title);
         }
-        
-
     }
 }
 
