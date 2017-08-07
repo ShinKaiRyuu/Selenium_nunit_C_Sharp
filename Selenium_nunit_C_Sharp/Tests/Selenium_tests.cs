@@ -1,10 +1,8 @@
 ﻿using NUnit.Framework;
-using NUnit.Framework.Interfaces;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using ReportPortal.Shared;
-using System;
-using System.Drawing.Imaging;
+using Selenium_nunit_C_Sharp.Helpers;
 
 namespace Example.Tests
 {
@@ -12,6 +10,7 @@ namespace Example.Tests
     class Selenium_test
     {
         IWebDriver driver;
+        Helper helper;
 
         [OneTimeSetUp]
         public void BeforeTestSuit() { }
@@ -23,14 +22,14 @@ namespace Example.Tests
         public void Initialize()
         {
             driver = new ChromeDriver();
+            helper = new Helper();
         }
 
         [TearDown]
         public void EndTest()
         {
-            var screenshot = ((ITakesScreenshot)driver).GetScreenshot();
             var filePath = TestContext.CurrentContext.TestDirectory + "\\tmp.png";
-            screenshot.SaveAsFile(filePath, ScreenshotImageFormat.Png);
+            helper.TakeScreenshot(driver, filePath);
             Bridge.LogMessage(ReportPortal.Client.Models.LogLevel.Info, "screenshot {rp#file#" + filePath + "}");
             driver.Quit();
         }
